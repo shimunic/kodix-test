@@ -5,7 +5,7 @@ import logo from './DUCK 1.png';
 import './fonts/Roboto-Regular.ttf'
 import './App.css';
 
-export default function App() {
+function App() {
   return (
     <div className='App'>
       <header className='App-header'>
@@ -13,14 +13,9 @@ export default function App() {
       </header>
       <div className='App-content'>
         <h1 className='App-heading'>¡Ay caramba!</h1>
-        <Form
-  
-        />
+        <Form />
         <p className='table-name'>АВТОМОБИЛИ В НАЛИЧИИ</p>
-        <Table
-          
-          cars={[1,2,3]}
-        />
+        <Table />
       </div>
       <footer className='App-footer'>
         <p>
@@ -44,3 +39,4 @@ export default function App() {
   );
 }
 
+export default App;

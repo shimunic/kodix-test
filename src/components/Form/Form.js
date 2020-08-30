@@ -1,18 +1,50 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {addCar} from '../../redux/actions'
 
-export default class From extends Component {
+class Form extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      name: ''
+    }
+  }
+
+  addCar = event => {
+    event.preventDefault()
+
+    const {name} = this.state 
+    if (!name.trim()) {
+      return
+    }
+    const newCar = {
+      name,
+      id: Date.now().toString()
+    }
+    this.props.addCar(newCar)
+    this.setState({name: ''})
+  }
+
+  inputChangeHandler = event => {
+    event.persist()
+    this.setState(prev => ({ ...prev, ...{
+      [event.target.name]: event.target.value
+    }}))
   }
 
   render() {
     return(
       <>
-        <div className='App-form'>
+        <form 
+          className='App-form'
+          onSubmit={this.addCar}
+          >
           <input
             className='name'
+            value={this.state.name}
+            onChange={this.inputChangeHandler}
+            name='name'
             type='text'
             placeholder='Название'
           />
@@ -45,19 +77,26 @@ export default class From extends Component {
           </div>
           <div className='status'>
             <select>
-              <option value='' disabled selected>Статус</option>
+              <option defaultValue='Статус' disabled>Статус</option>
               <option value='available'>В наличии</option>
               <option value='pending'>Ожидается</option>
               <option value='unavailable'>Нет в наличии</option>
             </select>
           </div>
-          <div className='send'>
-            <button>
-              ОТПРАВИТЬ >
-            </button>
-          </div>
-        </div>
+          <button 
+            className='send'
+            type='submit'
+          >
+            ОТПРАВИТЬ >
+          </button>
+        </form>
       </>
     )
   }
 }
+
+const mapDispatchToProps = {
+  addCar
+}
+
+export default connect(null, mapDispatchToProps)(Form) 
