@@ -1,17 +1,18 @@
 import React, {useEffect} from 'react';
 import {connect, useDispatch, useSelector} from 'react-redux'
-import CarRow from '../CarRow/CarRow'
 import './Table.css';
-import { fetchCars } from '../../redux/actions';
+import { fetchCars, removeCarRow } from '../../redux/actions';
 
 const Table = ({cars}) => {
   const dispatch = useDispatch()
-  const fetchedCars = useSelector(state => state.cars.fetchedCars)
+  // const fetchedCars = useSelector(state => state.cars.fetchedCars)
+  // const allCars = [...fetchedCars]  
+  const allCars = useSelector(state => state.cars.allCars)
+
   useEffect(() => {
     dispatch(fetchCars())
-  })
-  console.log('FETCHED_CARS', fetchedCars)
-  
+  }, [])  
+
   return (
       <table className='App-table'>
         <thead>
@@ -26,7 +27,7 @@ const Table = ({cars}) => {
         </thead>
         <tbody>
           {
-            fetchedCars.map(car => 
+            allCars.map(car => 
               <tr key={car.id}>
                 <td>
                   {car.title}
@@ -44,13 +45,15 @@ const Table = ({cars}) => {
                   {car.price}
                 </td>
                 <td>
-                  <button className='remove'>Удалить</button>
+                  <button
+                    className='remove'
+                    onClick={() => dispatch(removeCarRow(car.id, allCars))}
+                  >
+                    Удалить
+                  </button>
                 </td>
               </tr>
             )
-          }
-          {
-            cars.map(car => <CarRow car={car} key={car.id}/>)
           }
         </tbody>
       </table>
@@ -58,11 +61,8 @@ const Table = ({cars}) => {
   )
 }
 
-const mapStateToProps = state => {
-  console.log('STATE', state)
-  return {
-    cars: state.cars.cars
-  }
+const mapDispatchToProps = {
+  removeCarRow
 }
 
-export default connect(mapStateToProps, null)(Table)
+export default connect(null, mapDispatchToProps)(Table)

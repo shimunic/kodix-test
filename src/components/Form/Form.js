@@ -7,23 +7,47 @@ class Form extends Component {
     super(props)
 
     this.state = {
-      name: ''
+      title: '',
+      year: '',
+      price: '',
+      description: '',
+      colour: '',
+      status: ''
+
     }
   }
 
   addCar = event => {
     event.preventDefault()
 
-    const {name} = this.state 
-    if (!name.trim()) {
+    const { title, year, price, description, colour, status} = this.state 
+    if (
+      !title.trim() || 
+      !year.trim()  || 
+      !price.trim() //|| 
+      // !colour.trim() || 
+      // !status.trim()
+    ) {
       return
     }
     const newCar = {
-      name,
-      id: Date.now().toString()
+      id: Date.now().toString(),
+      title,
+      year,
+      price,
+      description,
+      colour,
+      status
     }
     this.props.addCar(newCar)
-    this.setState({name: ''})
+    this.setState({
+      title: '',
+      year: '',
+      price: '',
+      description: '',
+      colour: '',
+      status: ''
+    })
   }
 
   inputChangeHandler = event => {
@@ -41,25 +65,34 @@ class Form extends Component {
           onSubmit={this.addCar}
           >
           <input
-            className='name'
-            value={this.state.name}
+            className='title'
+            value={this.state.title}
             onChange={this.inputChangeHandler}
-            name='name'
+            name='title'
             type='text'
             placeholder='Название'
           />
           <input
             className='year'
+            value={this.state.year}
+            onChange={this.inputChangeHandler}
+            name='year'
             type='text'
             placeholder='Год'
           />
           <input
             className='price'
+            value={this.state.price}
+            onChange={this.inputChangeHandler}
+            name='price'
             type='text'
             placeholder='Цена'
           />
           <input
             className='description'
+            value={this.state.description}
+            onChange={this.inputChangeHandler}
+            name='description'
             type='text'
             placeholder='Описание'
           />
@@ -67,12 +100,16 @@ class Form extends Component {
             <label>
               Цвет
             </label>
-            <div className='radio'>
-              <input className='white' type='radio' name='group1' />
-              <input className='black' type='radio' name='group1' />
-              <input className='gray' type='radio' name='group1' />
-              <input className='red' type='radio' name='group1' />
-              <input className='green' type='radio' name='group1' />
+            <div 
+              className='radio'
+              value={this.state.colour}
+              onChange={this.inputChangeHandler}
+            >
+              <input value='white' className='white' defaultChecked type='radio' name='group1' />
+              <input value='black' className='black' type='radio' name='group1' />
+              <input value='gray' className='gray' type='radio' name='group1' />
+              <input value='red' className='red' type='radio' name='group1' />
+              <input value='green' className='green' type='radio' name='group1' />
             </div>
           </div>
           <div className='status'>

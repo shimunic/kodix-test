@@ -1,4 +1,4 @@
-import { ADD_CAR, FETCH_CARS } from "./types";
+import { ADD_CAR, FETCH_CARS, REMOVE_CAR_ROW } from "./types";
 
 export function addCar(car) {
   return {
@@ -13,4 +13,12 @@ export function fetchCars() {
     const json = await response.json()
     dispatch({type: FETCH_CARS, payload: json})
   }
+}
+
+export function removeCarRow(carId, allCars) { 
+    const indexOfCarToRemove = allCars.findIndex(car => car.id === carId)
+    allCars.splice(indexOfCarToRemove, 1);
+    const newAllCars = allCars.slice()
+    return { type: REMOVE_CAR_ROW, payload: newAllCars}
+
 }
