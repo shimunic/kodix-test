@@ -53,7 +53,6 @@ class Form extends Component {
 
   inputChangeHandler = event => {
     event.persist()
-    console.log('VALUE', event.target)
     this.setState(prev => ({ ...prev, ...{
       [event.target.name]: event.target.value
     }}))
@@ -66,7 +65,6 @@ class Form extends Component {
   render() {
     return(
       <>
-        {console.log('INITIALSTATE', this.state)}
         <form 
           className='App-form'
           onSubmit={this.addCar}

@@ -35,7 +35,7 @@ const Table = ({cars}) => {
                   }}>
                   {car.title}
                   <br/>
-                  <span className='description'>
+                  <span className='car-description'>
                     {car.description}
                   </span>
                 </td>
