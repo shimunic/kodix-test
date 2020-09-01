@@ -26,20 +26,41 @@ const Table = ({cars}) => {
           </tr>
         </thead>
         <tbody>
-          {
+          {allCars.length !== 0 ?
             allCars.map(car => 
               <tr key={car.id}>
-                <td>
+                <td style={{
+                    textAlign: "left",
+                    width: '50%'
+                  }}>
                   {car.title}
+                  <br/>
+                  <span className='description'>
+                    {car.description}
+                  </span>
                 </td>
                 <td>
                   {car.year}
                 </td>
                 <td>
-                  {car.color}
+                  <button 
+                    className='colour-circle'
+                    style={{ 
+                      backgroundColor: car.colour || car.color
+                    }}
+                  >
+                  </button>
                 </td>
                 <td>
-                  {car.status}
+                  {
+                    (car.status === 'pending' || car.status === 'pednding') && 'Ожидается'
+                  }
+                  {
+                    (car.status === 'unavailable' || car.status === 'out_of_stock') && 'Нет в наличии'
+                  }
+                  {
+                    (car.status === 'available' || car.status === 'in_stock') && 'В наличии'
+                  }
                 </td>
                 <td>
                   {car.price}
@@ -54,6 +75,14 @@ const Table = ({cars}) => {
                 </td>
               </tr>
             )
+            :
+            <tr>
+              <td colSpan='6'>
+                <p>
+                  Машин пока нет
+                </p>
+              </td>
+            </tr>
           }
         </tbody>
       </table>
@@ -61,8 +90,14 @@ const Table = ({cars}) => {
   )
 }
 
+function mapStateToProps(state) {
+    return {
+      cars: state.cars.cars
+    }
+}
+
 const mapDispatchToProps = {
   removeCarRow
 }
 
-export default connect(null, mapDispatchToProps)(Table)
+export default connect(mapStateToProps, mapDispatchToProps)(Table)

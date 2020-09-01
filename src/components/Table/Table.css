@@ -1,7 +1,63 @@
+table {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 20px;
+  color: #323232;
+}
 .App-table {
   width: 100%;
+  border-collapse: collapse;
+  border-radius: 4px 4px 0px 0px;
+  overflow: hidden;
 }
 .App-table thead {
   background: #C3002F;
   color: #FFFFFF;
+  text-align: left;
+}
+.App-table thead th {
+  height: 44px;
+  padding: 12px;
+}
+td {
+  padding: 10px;
+  background: #F5F6F6;;
+  border-bottom: 1px solid #DADADA;
+}
+.colour-circle {
+  border: 1px solid black;
+  border-color: black;
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+}
+.description {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 20px;
+  color: #8B8B8B;
+}
+button.remove {
+  padding: 4px 14px;
+  background: #F5F6F6;
+  border-radius: 20px;
+}
+.remove {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+
+  border: none;
+}
+.remove:hover {
+  background: #282D30;
+  cursor: pointer;
+  color: white;
+  
 }

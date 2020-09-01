@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {addCar} from '../../redux/actions'
+import './Form.css'
 
 class Form extends Component {
   constructor(props) {
@@ -24,9 +25,9 @@ class Form extends Component {
     if (
       !title.trim() || 
       !year.trim()  || 
-      !price.trim() //|| 
-      // !colour.trim() || 
-      // !status.trim()
+      !price.trim() || 
+      !colour.trim() || 
+      !status.trim()
     ) {
       return
     }
@@ -52,14 +53,20 @@ class Form extends Component {
 
   inputChangeHandler = event => {
     event.persist()
+    console.log('VALUE', event.target)
     this.setState(prev => ({ ...prev, ...{
       [event.target.name]: event.target.value
     }}))
   }
 
+  // selectChangeHandler = event => {
+  //   this.setState({ value: event.target.value })
+  // }
+
   render() {
     return(
       <>
+        {console.log('INITIALSTATE', this.state)}
         <form 
           className='App-form'
           onSubmit={this.addCar}
@@ -105,16 +112,31 @@ class Form extends Component {
               value={this.state.colour}
               onChange={this.inputChangeHandler}
             >
-              <input value='white' className='white' defaultChecked type='radio' name='group1' />
-              <input value='black' className='black' type='radio' name='group1' />
-              <input value='gray' className='gray' type='radio' name='group1' />
-              <input value='red' className='red' type='radio' name='group1' />
-              <input value='green' className='green' type='radio' name='group1' />
+              <label className="radio-container white">
+                <input value='white' type='radio' name='colour'/>
+                <span className="new-radio"></span>
+              </label>
+              <label className="radio-container black">
+                <input value='black' type='radio' name='colour'/>
+                <span className="new-radio"></span>
+              </label>
+              <label className="radio-container gray">
+                <input value='gray' type='radio' name='colour'/>
+                <span className="new-radio"></span>
+              </label>
+              <label className="radio-container red">
+                <input value='red' type='radio' name='colour'/>
+                <span className="new-radio"></span>
+              </label>
+              <label className="radio-container green">
+                <input value='green' type='radio' name='colour'/>
+                <span className="new-radio"></span>
+              </label>
             </div>
           </div>
           <div className='status'>
-            <select>
-              <option defaultValue='Статус' disabled>Статус</option>
+            <select value={this.state.status} name='status' onChange={this.inputChangeHandler}>
+              <option value="" disabled hidden>Статус</option>
               <option value='available'>В наличии</option>
               <option value='pending'>Ожидается</option>
               <option value='unavailable'>Нет в наличии</option>
@@ -124,7 +146,7 @@ class Form extends Component {
             className='send'
             type='submit'
           >
-            ОТПРАВИТЬ >
+            <span>отправить ></span> 
           </button>
         </form>
       </>
